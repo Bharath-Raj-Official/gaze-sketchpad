@@ -45,26 +45,20 @@ class gazeSketchExtension {
 
     // This update function is called every time new face detection results are available.
     update(detections) {
-        this.liveDetections = detections;
-
-        // First, I check if there are any valid detections to process.
-        if (detections && detections.length > 0) {
-            const face = detections[0];
-            if (face.keypoints && face.keypoints.length > 0) {
-                // I pass the keypoints to the individual trackers to update their internal states.
-                this.gazeTracker.update(face.keypoints);
-                this.mouthDetector.update(face.keypoints);
-
-                // Crucially, the drawing controller is only updated if the calibration process is complete.
-                if (this.calibrationMode == "complete") {
-                    const gazePos = this.gazeTracker.getGazePosition();
-                    const isMouthOpen = this.mouthDetector.getIsMouthOpen();
-                    this.drawingController.update(gazePos, isMouthOpen);
-                }
-            }
+        this.liveDetections = detections || [];
+        const points = this.liveDetections[0]?.keypoints;
+        if (!this.gazeTracker.update(points) || !this.mouthDetector.update(points)) {
+            this.mouthDetector.update(null);
+            this.drawingController.isDrawing = false;
+            this.drawingController.lastDrawPos = null;
+            this.drawingController.drawingHistory = [];
+            return;
+        }
+        if (this.calibrationMode === "complete") {
+            this.drawingController.update(this.gazeTracker.getGazePosition(), this.mouthDetector.getIsMouthOpen());
         }
     }
-    
+
     // This is the main display method that orchestrates rendering all visual components to the canvas on each frame.
     display(webcamFeed) {
         this.webcamFeed = webcamFeed;
