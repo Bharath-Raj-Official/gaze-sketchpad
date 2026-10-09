@@ -6,7 +6,7 @@ class mouthOpenDetector {
   const scale=Math.hypot(points[33].x-points[263].x,points[33].y-points[263].y);if(scale<1e-6)return null;
   return [[13,14],[12,15],[267,271],[37,84]].reduce((sum,[a,b])=>sum+Math.abs(points[b].y-points[a].y),0)/(4*scale);
  }
- update(points){const value=this.measure(points);if(value===null){this.isMouthOpen=false;this.recentStates=[];return false;}
+ update(points){const value=this.measure(points);if(value===null){this.isMouthOpen=false;this.recentStates=[];this.aperture=this.smoothedAperture=this.neutralAperture||0;return false;}
   this.smoothedAperture=this.smoothingFactor*value+(1-this.smoothingFactor)*this.smoothedAperture;this.aperture=this.smoothedAperture;
   if(!this.isCalibrated){this.isMouthOpen=false;return true;}
   this.recentStates.push(this.aperture>Math.max(.025,this.neutralAperture*this.openThresholdMultiplier));if(this.recentStates.length>5)this.recentStates.shift();

@@ -30,7 +30,7 @@ $('camera').onclick=async()=>{
     if(!navigator.mediaDevices?.getUserMedia)throw new Error('Camera mode requires HTTPS or localhost. Use the pointer demo here.');
     const acquired=await navigator.mediaDevices.getUserMedia({video:{width:640,height:480},audio:false});
     if(ticket!==generation){acquired.getTracks().forEach(t=>t.stop());return;}
-    stream=acquired;$('preview').srcObject=stream;await $('preview').play();await withTimeout(loadML(),20000,'Library loading timed out. Retry or use the pointer demo.');
+    stream=acquired;$('preview').srcObject=stream;await withTimeout($('preview').play(),10000,'Camera preview timed out. Retry or use the pointer demo.');await withTimeout(loadML(),20000,'Library loading timed out. Retry or use the pointer demo.');
     if(ticket!==generation)return;status('Loading face model…');
     const loadedModel=await withTimeout(new Promise(resolve=>{const instance=ml5.faceMesh({maxFaces:1,refineLandmarks:true,flipped:false},()=>resolve(instance));}),45000,'Face model loading timed out. Retry or use the pointer demo.');
     if(ticket!==generation)return;
@@ -52,7 +52,7 @@ function tick(){
   if(mode==='camera'&&tracker.isCalibrated){
     tracker.setSensitivity(Number($('sx').value),Number($('sy').value));tracker.smoothingFactor=Number($('smooth').value)/100;
     const points=controller.liveDetections[0]?.keypoints;
-    if(performance.now()-lastFace>500||!tracker.update(points)){$('cursor').hidden=true;endStroke();if(measurement){measurement=null;$('target').hidden=true;$('metrics').textContent='Measurement cancelled: tracking was lost. Reacquire your face and retry.';}status('Tracking lost · drawing paused');}
+    if(performance.now()-lastFace>500||!tracker.update(points)){$('cursor').hidden=true;mouth.update(null);endStroke();if(measurement){measurement=null;$('target').hidden=true;$('metrics').textContent='Measurement cancelled: tracking was lost. Reacquire your face and retry.';}status('Tracking lost · drawing paused');}
     else{
       mouth.update(points);const p=tracker.getGazePosition();$('cursor').hidden=false;$('cursor').style.left=p.x*100+'%';$('cursor').style.top=p.y*100+'%';
       const drawing=!paused&&!measurement&&mouth.getIsMouthOpen();drawPoint(p,drawing);status(paused?'Paused':drawing?'Drawing · close your mouth to lift':'Tracking · open your mouth to draw');
