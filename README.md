@@ -38,7 +38,7 @@ One-point calibration assumes a stable head and camera distance; it is not a cli
 
 ## Validation
 
-Pointer stroke/undo/export and camera denial passed in Edge. Synthetic landmark checks cover equal calibration/update calculations, collapsed eyes, NaN coordinates and mouth fail-closed handling. The real pinned ml5 model loaded with a browser-generated synthetic camera; no personal camera was used. Human calibration accuracy remains unmeasured.
+Pointer stroke/undo/export and camera denial passed in Edge. Synthetic checks cover equal calibration/update calculations, collapsed eyes, NaN coordinates, mouth fail-closed handling, camera calibration, tracking loss, stroke discontinuity, cancelled measurement and recoverable model failure. The real pinned ml5 model loaded with a browser-generated synthetic camera; no personal camera was used. Human calibration accuracy remains unmeasured.
 
 ## Third-party attribution
 
