@@ -6,7 +6,7 @@ Drawing with a mouse assumes that a pointer is the right input for everyone. Thi
 
 ## Demo
 
-Local preview works with the setup below. GitHub Pages publication is pending destination authentication; a live URL will be added after verification.
+[Open the live demo](https://bharath-raj-official.github.io/gaze-sketchpad/). Local setup is also available below.
 
 ## What it does
 

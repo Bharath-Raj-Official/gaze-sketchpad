@@ -16,6 +16,8 @@
 
 ## Workflow
 
+- DJ Mixer publishing is on hold by user instruction: the inherited starter code lacks redistribution permission. Keep its destination repository private; do not publish its source, binaries, releases, portfolio case study, or public links until the user explicitly resolves the permission issue and lifts this hold.
+
 - Run `python tools/portfolio_guard.py inspect <archive.zip>` before importing source.
 - Use `python tools/portfolio_guard.py import <archive.zip>` to import an eligible archive.
 - Preserve supplied ZIPs and their recorded SHA-256 digests in `baselines/`; never modify them.
