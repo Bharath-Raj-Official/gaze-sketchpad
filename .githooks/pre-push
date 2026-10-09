@@ -1,0 +1,2 @@
+#!/bin/sh
+python tools/repository_guard.py "$1" "$2"

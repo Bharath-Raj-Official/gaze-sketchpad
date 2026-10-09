@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bharath's CM2030 Image Processing application</title>
-        <link rel="stylesheet" href="styles.css">
-
-        <!-- p5-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
-
-        <!-- ml5 -->
-        <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
-
-        <!-- my application files -->
-        <script src="imagePanel.js"></script>
-        <script src="sketchPad.js"></script>
-        <script src="GazeTracker.js"></script>
-        <script src="mouthOpenDetector.js"></script>
-        <script src="DrawingController.js"></script>
-        <script src="gazeSketchExtension.js"></script>
-        <script src="sketch.js"></script>
-    </head>
-    <body>
-    </body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gaze Sketchpad — draw with your eyes</title><meta name="description" content="An experimental webcam drawing studio using iris landmarks and mouth gestures."><link rel="stylesheet" href="studio.css"><script defer src="GazeTracker.js"></script><script defer src="mouthOpenDetector.js"></script><script defer src="studio.js"></script></head>
+<body><header><a class="brand" href="index.html">Gaze Sketchpad<span>Experimental drawing studio</span></a><nav><a href="processing.html">Image processing lab</a><a href="https://github.com/Bharath-Raj-Official/gaze-sketchpad">Source</a></nav></header>
+<main><div class="intro"><h1>A little movement.<br>A new way to draw.</h1><p>Look to move the brush. Open your mouth to make a mark.<br>Start with a pointer demo, or connect your camera.</p></div>
+<section class="studio" aria-label="Drawing studio"><div class="workspace"><div class="toolbar"><div class="modes"><button id="pointer" aria-pressed="true">Pointer demo</button><button id="camera" aria-pressed="false">Use camera</button></div><span id="status" role="status">Pointer demo · drag to draw</span></div><div class="paper"><canvas id="paper" width="1000" height="620" aria-label="Drawing canvas. In pointer mode, drag to draw."></canvas><span id="cursor" hidden></span><span id="target" hidden>Look here</span></div><div class="tools"><label>Ink <input id="ink" type="color" value="#263d34"></label><label>Brush <input id="brush" type="range" min="1" max="16" value="3"></label><button id="undo">Undo stroke</button><button id="clear">Clear canvas</button><button id="export">Save PNG</button></div></div>
+<aside><h2>Your session</h2><video id="preview" autoplay muted playsinline aria-label="Local camera preview"></video><p id="camera-note">The pointer demo needs no camera. Drag on the paper to explore.</p><button id="calibrate" disabled>Calibrate gaze + closed mouth</button><label>Horizontal sensitivity <input id="sx" type="range" min="1" max="30" value="15"></label><label>Vertical sensitivity <input id="sy" type="range" min="1" max="30" value="22"></label><label>Smoothing <input id="smooth" type="range" min="5" max="60" value="15"></label><button id="pause" disabled>Pause drawing</button><details><summary>Check tracking precision</summary><p>Keep looking at the centre marker for three seconds. This measures this session, not a general accuracy claim.</p><button id="measure" disabled>Measure centre error + jitter</button><p id="metrics" role="status">No measurements yet.</p></details><p class="privacy">Video is processed in your browser. Camera mode downloads the face model. Stop the camera by returning to Pointer demo.</p></aside></section>
+<section class="notes"><h2>Made for exploration.</h2><p>This prototype estimates gaze from iris positions within a pretrained face mesh. Lighting, head movement and camera quality affect precision. It is an experiment in interaction, not an assistive device validated for everyday use.</p></section></main><footer>Built by Bharath Raj · JavaScript / computer vision</footer></body></html>
